@@ -1,0 +1,364 @@
+@import "tailwindcss";
+
+:root {
+  /* Kak Kenzie's Five-Color Palette */
+  --palette-skyline: #4D6A75;
+  --palette-deep-ocean: #4E8577;
+  --palette-greenery: #56612E;
+  --palette-cliffside: #7E694F;
+  --palette-shadows: #2C2922;
+
+  /* Semantic Color Semantics */
+  --color-safe: #56612E;          /* Greenery: Safe/healthy/nominal */
+  --color-primary: #4E8577;       /* Deep Ocean: Primary UI accent */
+  --color-secondary: #4D6A75;     /* Skyline: Secondary slate-teal */
+  --color-stone: #7E694F;         /* Cliffside: Earthy warm stone */
+  --color-dark: #2C2922;          /* Shadows: Deep warm charcoal */
+  --color-warning-mod: #D97706;   /* Amber: Moderate warning */
+  --color-danger-high: #DC2626;   /* Red: High/Critical fire danger */
+
+  /* Surface & Canvas Tokens */
+  --color-canvas: #F8FAF9;
+  --color-surface: #FFFFFF;
+  --color-surface-subtle: #F1F5F3;
+  --color-border: #DCE4E1;
+  --color-text-main: #2C2922;
+  --color-text-muted: #4D6A75;
+
+  /* Backward-compatible FLORA aliases mapped to Kak Kenzie palette */
+  --flora-deep: #2C2922;
+  --flora-primary-dark: #2C2922;
+  --flora-primary: #4E8577;
+  --flora-secondary: #4D6A75;
+  --flora-accent: #56612E;
+  --flora-highlight: #EAEFED;
+  --flora-canvas: #F8FAF9;
+  --flora-surface: #FFFFFF;
+  --flora-border: #DCE4E1;
+  --flora-ink: #2C2922;
+  --flora-muted: #4D6A75;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background-color: #F8FAF9;
+  color: #2C2922;
+  font-family: 'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Typography Helpers */
+.font-display {
+  font-family: 'Plus Jakarta Sans', 'Inter', -apple-system, sans-serif;
+}
+.font-jakarta-bold {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 700;
+}
+.font-jakarta-semibold {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 600;
+}
+.font-marck-script {
+  font-family: 'Marck Script', cursive;
+}
+.font-tabular {
+  font-family: 'JetBrains Mono', monospace;
+  font-variant-numeric: tabular-nums;
+}
+
+/* FLORA Brand Gradient Text */
+@keyframes floraGreenShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.flora-gradient-text {
+  background: linear-gradient(135deg, #1E2805, #597C00 28%, #9DB312, #597C00 82%, #1E2805);
+  background-size: 250% 250%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: floraGreenShift 6s ease-in-out infinite;
+}
+
+/* Card Surface Styling from flora-six-zeta.vercel.app */
+.flora-card {
+  background: #FFFFFF;
+  border: 1px solid #D6DCCE;
+  border-radius: 18px;
+  box-shadow: 0 2px 10px rgba(38, 58, 53, 0.03);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.flora-card:hover {
+  border-color: #818C78;
+  box-shadow: 0 6px 18px rgba(38, 58, 53, 0.06);
+}
+
+.flora-card-hero {
+  background: linear-gradient(135deg, #23312E, #364844 48%, #4E635E);
+  border: 1px solid #4E635E;
+  border-radius: 20px;
+  color: #FFFFFF;
+  box-shadow: 0 12px 32px rgba(38, 58, 53, 0.16);
+}
+
+.flora-subtle-well {
+  background: #F5F4EE;
+  border: 1px solid #E2E0CB;
+  border-radius: 12px;
+}
+
+/* Glass Buttons with Light Shimmer */
+.glass-btn-shine {
+  position: relative;
+  overflow: hidden;
+  background: rgba(157, 179, 18, 0.16);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(89, 124, 0, 0.3);
+  box-shadow: 0 10px 30px -5px rgba(89, 124, 0, 0.15), inset 0 1px 1px rgba(255, 255, 255, 0.8);
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glass-btn-shine:after {
+  content: '';
+  position: absolute;
+  top: -60%;
+  left: -70%;
+  width: 50%;
+  height: 220%;
+  background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.75) 50%, transparent 100%);
+  transform: rotate(25deg);
+  transition: left 0.75s ease-in-out;
+  pointer-events: none;
+}
+
+.glass-btn-shine:hover:after {
+  left: 140%;
+}
+
+.glass-btn-shine:hover {
+  background: rgba(157, 179, 18, 0.28);
+  border-color: rgba(89, 124, 0, 0.55);
+  transform: translateY(-2px);
+  box-shadow: 0 16px 40px -6px rgba(89, 124, 0, 0.22), inset 0 1px 2px rgba(255, 255, 255, 0.9);
+}
+
+/* Ambient Floating Animations for Polygons */
+@keyframes ambientOrganic1 {
+  0%, 100% { transform: translate(0) rotate(0) scale(1); }
+  33% { transform: translate(14px, -16px) rotate(2.2deg) scale(1.018); }
+  66% { transform: translate(-12px, 12px) rotate(-1.8deg) scale(0.985); }
+}
+
+@keyframes ambientOrganic2 {
+  0%, 100% { transform: translate(0) rotate(0) scale(1); }
+  33% { transform: translate(-18px, 15px) rotate(-2.6deg) scale(0.982); }
+  66% { transform: translate(15px, -12px) rotate(2deg) scale(1.02); }
+}
+
+@keyframes ambientOrganic3 {
+  0%, 100% { transform: translate(0) rotate(0) scale(1); }
+  50% { transform: translate(10px, -20px) rotate(1.5deg) scale(1.015); }
+}
+
+.animate-organic-1 { animation: ambientOrganic1 18s ease-in-out infinite; will-change: transform; }
+.animate-organic-2 { animation: ambientOrganic2 15s ease-in-out infinite; will-change: transform; }
+.animate-organic-3 { animation: ambientOrganic3 20s ease-in-out infinite; will-change: transform; }
+
+@keyframes floatThreePercent {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-3%); }
+}
+
+.animate-float-3p-1 { animation: floatThreePercent 3.6s ease-in-out infinite; }
+.animate-float-3p-2 { animation: floatThreePercent 4.2s ease-in-out infinite 0.35s; }
+.animate-float-3p-3 { animation: floatThreePercent 3.9s ease-in-out infinite 0.7s; }
+
+@keyframes floraTextColorShift {
+  0% { color: #1E2805; }
+  33% { color: #597C00; }
+  66% { color: #9DB312; }
+  100% { color: #1E2805; }
+}
+
+.animate-text-flora-color { animation: floraTextColorShift 5.5s ease-in-out infinite; }
+.animate-text-flora-color-delayed { animation: floraTextColorShift 5.5s ease-in-out infinite 1.8s; }
+
+/* Clean Minimal Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #F2F6F4;
+}
+::-webkit-scrollbar-thumb {
+  background: #C8D7CF;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #A3BDB2;
+}
+
+/* === PHASE 01: DASHBOARD DESIGN SYSTEM UTILITIES (ISOLATED - ZERO SPLASH OVERLAP) === */
+.flora-card-interactive {
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+}
+.flora-card-interactive:hover {
+  border-color: #818C78;
+  box-shadow: 0 4px 14px rgba(38, 58, 53, 0.08);
+}
+
+.flora-focus-ring:focus-visible {
+  outline: 2px solid #4E635E;
+  outline-offset: 2px;
+}
+
+.flora-table-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: #C4CCC0 #F5F4EE;
+}
+.flora-table-scroll::-webkit-scrollbar {
+  height: 5px;
+}
+.flora-table-scroll::-webkit-scrollbar-track {
+  background: #F5F4EE;
+  border-radius: 4px;
+}
+.flora-table-scroll::-webkit-scrollbar-thumb {
+  background: #C4CCC0;
+  border-radius: 4px;
+}
+.flora-table-scroll::-webkit-scrollbar-thumb:hover {
+  background: #818C78;
+}
+
+/* === PHASE 02: LAYOUT & RESPONSIVE DASHBOARD UTILITIES === */
+.flora-sidebar-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: #4E635E #1A2522;
+}
+.flora-sidebar-scroll::-webkit-scrollbar {
+  width: 4px;
+}
+.flora-sidebar-scroll::-webkit-scrollbar-track {
+  background: #1A2522;
+}
+.flora-sidebar-scroll::-webkit-scrollbar-thumb {
+  background: #3B4D48;
+  border-radius: 4px;
+}
+.flora-sidebar-scroll::-webkit-scrollbar-thumb:hover {
+  background: #4E635E;
+}
+
+/* === PHASE 03: MONITORING & DATA VISUALIZATION POLISH UTILITIES === */
+.flora-meter-bar {
+  transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: width;
+}
+
+.flora-chart-axis-pill {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 10px;
+  letter-spacing: 0.02em;
+}
+
+/* === PHASE 08: DESKTOP-FIRST UI REFINEMENT UTILITIES (ISOLATED - ZERO SPLASH OVERLAP) === */
+@media (min-width: 1024px) {
+  .flora-desktop-panel-align {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+}
+
+/* === B.4.8: KAK KENZIE FIVE-COLOR PALETTE & COHESIVE DASHBOARD CLASSES === */
+.bg-skyline { background-color: #4D6A75; }
+.text-skyline { color: #4D6A75; }
+.border-skyline { border-color: #4D6A75; }
+
+.bg-deep-ocean { background-color: #4E8577; }
+.text-deep-ocean { color: #4E8577; }
+.border-deep-ocean { border-color: #4E8577; }
+
+.bg-greenery { background-color: #56612E; }
+.text-greenery { color: #56612E; }
+.border-greenery { border-color: #56612E; }
+
+.bg-cliffside { background-color: #7E694F; }
+.text-cliffside { color: #7E694F; }
+.border-cliffside { border-color: #7E694F; }
+
+.bg-shadows { background-color: #2C2922; }
+.text-shadows { color: #2C2922; }
+.border-shadows { border-color: #2C2922; }
+
+/* Refined Light/Dark Card Styles */
+.agra-card {
+  background: #FFFFFF;
+  border: 1px solid #DCE4E1;
+  border-radius: 16px;
+  box-shadow: 0 1px 3px rgba(44, 41, 34, 0.04);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.agra-card:hover {
+  border-color: #4E8577;
+  box-shadow: 0 4px 14px rgba(78, 133, 119, 0.08);
+}
+
+.agra-card-hero {
+  background: linear-gradient(135deg, #2C2922 0%, #20312D 55%, #4E8577 100%);
+  border: 1px solid #4D6A75;
+  border-radius: 18px;
+  color: #FFFFFF;
+  box-shadow: 0 10px 24px rgba(44, 41, 34, 0.16);
+}
+
+/* Semantic Badges */
+.agra-badge-safe {
+  background: rgba(86, 97, 46, 0.12);
+  color: #56612E;
+  border: 1px solid rgba(86, 97, 46, 0.35);
+}
+
+.agra-badge-moderate {
+  background: rgba(217, 119, 6, 0.12);
+  color: #B45309;
+  border: 1px solid rgba(217, 119, 6, 0.35);
+}
+
+.agra-badge-high {
+  background: rgba(220, 38, 38, 0.12);
+  color: #DC2626;
+  border: 1px solid rgba(220, 38, 38, 0.35);
+}
+
+.agra-badge-ocean {
+  background: rgba(78, 133, 119, 0.12);
+  color: #4E8577;
+  border: 1px solid rgba(78, 133, 119, 0.3);
+}
+
+.agra-badge-skyline {
+  background: rgba(77, 106, 117, 0.12);
+  color: #4D6A75;
+  border: 1px solid rgba(77, 106, 117, 0.25);
+}
+
+.agra-badge-cliffside {
+  background: rgba(126, 105, 79, 0.12);
+  color: #7E694F;
+  border: 1px solid rgba(126, 105, 79, 0.3);
+}
